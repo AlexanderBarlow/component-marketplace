@@ -106,30 +106,33 @@ export default function MarketplacePage() {
           {components.map((component) => (
             <div
               key={component.id}
-              className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-glow hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col justify-between text-white group"
+              className="relative bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 pt-8 pb-24 shadow-glow hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col justify-between text-white group overflow-hidden"
             >
-              <div>
-                <h3 className="text-2xl font-bold text-glow mb-2 group-hover:text-yellow-300">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-glow group-hover:text-yellow-300">
                   {component.name}
                 </h3>
-                <p className="text-sm text-white/70 mb-3">
-                  {component.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {component.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${techColors[tech]}`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                <p className="text-sm text-white/70">{component.description}</p>
               </div>
-              <div className="mt-6 text-right">
-                <span className="text-pink-400 font-bold text-xl">
+
+              <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                {component.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className={`px-3 py-1 text-xs font-semibold rounded-full ${techColors[tech]}`}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="absolute bottom-4 right-4 flex flex-col items-end space-y-2">
+                <div className=" text-glow-pink text-pink-500 px-3 py-1 rounded-full text-md font-bold ">
                   {component.price}
-                </span>
+                </div>
+                <button className="px-4 py-2 text-sm font-bold rounded-full bg-gradient-to-r from-pink-500 to-yellow-300 text-black shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:from-pink-400 hover:to-yellow-200 transition-all duration-300 hover:scale-105">
+                  Purchase
+                </button>
               </div>
             </div>
           ))}
