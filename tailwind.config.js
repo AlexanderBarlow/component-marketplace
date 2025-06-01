@@ -15,6 +15,9 @@ module.exports = {
         sans: ["'Geist Sans'", "Arial", "sans-serif"],
         mono: ["'Geist Mono'", "monospace"],
       },
+      backgroundImage: {
+        "neon-gradient": "linear-gradient(90deg, #3b82f6, #ec4899, #8b5cf6)", // blue-500 → pink-500 → violet-500
+      },
     },
   },
   plugins: [],
