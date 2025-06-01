@@ -22,6 +22,7 @@ body {
     user-select: none;
     text-rendering: optimizeLegibility;
     overscroll-behavior: none;
+    min-height: 100vh;
   }
   
 }
