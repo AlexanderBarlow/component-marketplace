@@ -17,7 +17,6 @@ export const metadata = {
   title: "Component Marketplace",
   description: "UI Components Platform",
   manifest: "/manifest.json",
-  themeColor: "#FFD700",
 };
 
 export default function RootLayout({ children }) {
