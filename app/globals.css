@@ -13,9 +13,17 @@
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
+  }
+  
 }
 
 @layer utilities {
