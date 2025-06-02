@@ -1,10 +1,11 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function UserDashboard() {
   const { id } = useParams();
+  const router = useRouter();
 
   return (
     <div className="relative min-h-screen w-full bg-background text-foreground font-sans overflow-hidden px-4 pb-20">
@@ -38,6 +39,16 @@ export default function UserDashboard() {
               Tier: <span className="text-blue-400 text-glow-blue">Free</span>
             </p>
           </div>
+        </div>
+
+        {/* Add Component Button */}
+        <div className="flex justify-center">
+          <button
+            onClick={() => router.push("/add-component")}
+            className="px-6 py-3 rounded-full bg-pink-600 text-green-400 font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 transition-transform duration-300"
+          >
+            + Add New Component
+          </button>
         </div>
 
         {/* Components For Sale */}
