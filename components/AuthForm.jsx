@@ -3,27 +3,50 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/lib/supabaseClient";
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default function AuthForm({ type }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError("");
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   setError("");
 
-    if (!email.trim() || !password.trim()) {
-      setError("Please fill out both fields.");
-      return;
-    }
+   if (!email.trim() || !password.trim()) {
+     setError("Please fill out both fields.");
+     return;
+   }
 
-    login({ id: "test", name: "Alex", email });
-    router.push("/profile/test");
-  };
+   try {
+     const endpoint = type === "login" ? "/api/user/login" : "/api/user/create";
+
+     const res = await fetch(endpoint, {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({ email, password }),
+     });
+
+     const data = await res.json();
+
+     if (!res.ok) {
+       setError(data.error || "Something went wrong.");
+       return;
+     }
+
+     router.push(`/profile/${data.userId}`);
+   } catch (err) {
+     setError("Server error.");
+   }
+ };
+
+
 
   const handleRedirect = () => {
     router.push(type === "login" ? "/signup" : "/login");

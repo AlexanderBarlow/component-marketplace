@@ -2,10 +2,21 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function UserDashboard() {
   const { id } = useParams();
   const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/user/${id}`)
+        .then((res) => res.json())
+        .then((data) => setUser(data))
+        .catch((err) => console.error("Failed to fetch user", err));
+    }
+  }, [id]);
 
   return (
     <div className="relative min-h-screen w-full bg-background text-foreground font-sans overflow-hidden px-4 pb-20">
@@ -26,17 +37,17 @@ export default function UserDashboard() {
         {/* Profile Card */}
         <div className="flex flex-col sm:flex-row items-center gap-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-lg">
           <div className="w-24 h-24 bg-yellow-300 text-black rounded-full flex items-center justify-center text-3xl font-bold shadow-inner shadow-yellow-500/30">
-            AB
+            {user?.email?.[0]?.toUpperCase() || "U"}
           </div>
           <div className="text-center sm:text-left">
             <h2 className="text-2xl font-bold text-yellow-400 text-glow">
-              Alex Barlow
+              {user?.name || "Unnamed User"}
             </h2>
             <p className="text-white/60 text-sm text-glow-blue">
-              alex@example.com
+              {user?.email || "Loading..."}
             </p>
             <p className="text-sm mt-1 text-white/50">
-              Tier: <span className="text-blue-400 text-glow-blue">Free</span>
+              Tier: <span className="text-blue-400 text-glow-blue">{user?.tier || "Free"}</span>
             </p>
           </div>
         </div>
